@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/res/constant/app_colors.dart';
+import 'package:todo_app/view/home/add_todo_screen.dart';
 
 import '../../res/constant/app_string.dart';
 
@@ -123,7 +124,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         Size(80, 50),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddToDoScreen(),
+                          ));
+                    },
                     child: const Text(
                       "Add",
                       style: TextStyle(

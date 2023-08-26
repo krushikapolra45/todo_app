@@ -53,20 +53,15 @@ class _AddToDoScreenState extends State<AddToDoScreen> {
                       // enabledBorder: enabledBorder,
                       contentPadding: const EdgeInsets.all(20),
                       isDense: true,
+                      hintText: AppStrings.title,
+                      hintStyle: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       // filled: true,
                       suffixIcon: Padding(
                         padding: const EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            AppStrings.title,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ),
@@ -99,21 +94,13 @@ class _AddToDoScreenState extends State<AddToDoScreen> {
                       // enabledBorder: enabledBorder,
                       contentPadding: const EdgeInsets.all(60),
                       isDense: true,
+                      hintText: "contain",
+                      hintStyle: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       // filled: true,
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "contain",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                   SizedBox(height: screenHeight / 40),
