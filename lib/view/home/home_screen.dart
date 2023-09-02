@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/res/constant/app_colors.dart';
-import 'package:todo_app/view/home/add_todo_screen.dart';
+import 'package:todo_app/res/constant/constant.dart';
 
 import '../../res/constant/app_string.dart';
+import 'add_todo_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: devicePadding,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.appTitle,
+          title: Text(AppStrings.appTitle,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w500,
@@ -30,117 +31,126 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           backgroundColor: AppColors.pink,
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: screenWidth,
-                height: screenHeight / 3.9,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: AppColors.pink.withOpacity(0.10),
+        body: Constant.todoList.isEmpty
+            ? const Center(
+                child: Text(
+                  "No To-Do Found",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                child: Padding(
+              )
+            : ListView.separated(
+                itemCount: Constant.todoList.length,
+                separatorBuilder: (context, index) => SizedBox(),
+                itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppStrings.title,
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            AppStrings.contain,
-                            style: TextStyle(
-                              color: AppColors.pink,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            AppStrings.time,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: PopupMenuButton(
-                          elevation: 0,
-                          iconSize: 35,
-                          padding: const EdgeInsets.only(right: 10),
-                          itemBuilder: (context) => [
-                            CheckedPopupMenuItem(
-                              // checked: true,
-                              child: Container(
-                                height: 60,
-                                child: const Column(
-                                  children: [
-                                    Text("delete",
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w500,
-                                        )),
-                                    Text(
-                                      "Edit",
-                                      style: TextStyle(
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
+                  child: Container(
+                    width: screenWidth,
+                    height: screenHeight / 7,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.pink.withOpacity(0.10),
+                          blurRadius: 2,
+                          // spreadRadius: 0,
+                          offset: Offset(0, 6),
+                        ),
+                      ],
+                      color: AppColors.pink.withOpacity(0.10),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Title: ${Constant.todoList[index].title}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ],
+                              Text(
+                                "content: ${Constant.todoList[index].content}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                // toDoModelListData[index].itemname!,
+                                "time: ${Constant.todoList[index].time}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        Spacer(),
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: Column(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      Constant.todoList.removeAt(index);
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: AppColors.pink,
+                                    size: 20,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AddToDoScreen(index: index),
+                                      ),
+                                    ).then((value) {
+                                      setState(() {});
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.change_circle,
+                                    color: AppColors.pink,
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        AppColors.pink,
-                      ),
-                      fixedSize: MaterialStatePropertyAll(
-                        Size(80, 50),
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddToDoScreen(),
-                          ));
-                    },
-                    child: const Text(
-                      "Add",
-                      style: TextStyle(
-                        fontSize: 20,
-                        // color: AppColors.,
-                      ),
-                    )),
+        floatingActionButton: FloatingActionButton.extended(
+          elevation: 0,
+          focusColor: AppColors.white,
+          backgroundColor: AppColors.pink,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddToDoScreen(),
               ),
-            )
-          ],
+            ).then((value) {
+              setState(() {});
+            });
+          },
+          icon: const Icon(Icons.add),
+          label: const Text("Add", style: TextStyle(fontSize: 20)),
         ),
       ),
     );

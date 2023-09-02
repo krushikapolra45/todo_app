@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Animation<double>? animation;
 
   fadeInAnimation() {
-    controller = AnimationController(duration: Duration(milliseconds: 1500), vsync: this);
+    controller = AnimationController(duration: Duration(milliseconds: 2000), vsync: this);
     animation = CurvedAnimation(parent: controller!, curve: Curves.easeIn);
     Future.delayed(Duration(milliseconds: 400), () => controller!.forward());
   }
@@ -67,11 +67,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
               opacity: animation!,
               child: Text(
                 "welcome To Do App",
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  color: Colors.white,
-                  fontSize: 30,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
               ),
             )
           ],
