@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/res/constant/app_colors.dart';
 import 'package:todo_app/res/constant/constant.dart';
 
+import '../../model/to_do_model_view.dart';
 import '../../res/constant/app_string.dart';
 import 'add_todo_screen.dart';
 
@@ -13,6 +17,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  SharedPreferences? prefs;
+
+  setInstance() async {
+    prefs = await SharedPreferences.getInstance();
+    getToDOData();
+  }
+
+  getToDOData() async {
+    Constant.todoList = (json.decode(prefs!.getString("ToDoList")!) as List).map((value) => ToDoModelAddList.fromJson(value)).toList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    setInstance();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -103,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onPressed: () {
                                     setState(() {
                                       Constant.todoList.removeAt(index);
+                                      prefs!.setString("ToDoList", json.encode(Constant.todoList.map((value) => value.toJson()).toList()));
                                     });
                                   },
                                   icon: Icon(
