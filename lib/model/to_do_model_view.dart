@@ -14,14 +14,4 @@ class ToDoModelAddList {
     content = json["content"];
     time = json["time"];
   }
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "username": username,
-    "email": email,
-    "address": address?.toJson(),
-    "phone": phone,
-    "website": website,
-    "company": company?.toJson(),
-  };
 }

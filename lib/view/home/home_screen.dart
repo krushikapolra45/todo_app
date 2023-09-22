@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   onPressed: () {
                                     setState(() {
                                       Constant.todoList.removeAt(index);
-                                      prefs!.setString("ToDoList", json.encode(Constant.todoList.map((value) => value.toJson()).toList()));
+                                      // prefs!.setString("ToDoList", json.encode(Constant.todoList.map((value) => value.toJson()).toList()));
                                     });
                                   },
                                   icon: Icon(
